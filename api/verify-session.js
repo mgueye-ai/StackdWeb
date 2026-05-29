@@ -1,6 +1,7 @@
 const Stripe = require("stripe");
 const { getProduct } = require("./lib/products");
 const { savePaidOrder } = require("./lib/supabase");
+const { sendOrderEmails } = require("./lib/order-emails");
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -54,6 +55,14 @@ module.exports = async (req, res) => {
         currency: session.currency || "usd",
         status: "paid",
         paid_at: new Date().toISOString(),
+      });
+
+      await sendOrderEmails({
+        sessionId: session.id,
+        email,
+        productId,
+        amountCents: session.amount_total,
+        currency: session.currency || "usd",
       });
     }
 

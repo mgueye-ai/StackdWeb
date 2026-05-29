@@ -36,7 +36,7 @@
           if (data.ok && data.product) {
             messageEl.textContent =
               "Your " + data.product.name + " order is confirmed" +
-              (data.email ? " — we'll reach out at " + data.email + "." : ".");
+              (data.email ? " — a confirmation email was sent to " + data.email + "." : ".");
           } else {
             messageEl.textContent = "Your payment was received. We'll send a confirmation email shortly.";
           }

@@ -1,5 +1,6 @@
 const Stripe = require("stripe");
 const { savePaidOrder } = require("./lib/supabase");
+const { sendOrderEmails } = require("./lib/order-emails");
 
 async function readRawBody(req) {
   const chunks = [];
@@ -57,16 +58,30 @@ module.exports = async (req, res) => {
       if (!product || !session.customer_details?.email) {
         console.error("Checkout session missing product metadata or email.");
       } else {
+        const email = session.customer_details.email.toLowerCase();
+
         await savePaidOrder({
           stripe_session_id: session.id,
           stripe_payment_intent_id: session.payment_intent,
-          email: session.customer_details.email.toLowerCase(),
+          email,
           product,
           amount_cents: session.amount_total,
           currency: session.currency || "usd",
           status: "paid",
           paid_at: new Date().toISOString(),
         });
+
+        const emailResult = await sendOrderEmails({
+          sessionId: session.id,
+          email,
+          productId: product,
+          amountCents: session.amount_total,
+          currency: session.currency || "usd",
+        });
+
+        if (!emailResult.skipped && (!emailResult.customerSent || !emailResult.adminSent)) {
+          console.error("Order confirmation emails partially failed:", emailResult);
+        }
       }
     }
 

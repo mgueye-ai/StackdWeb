@@ -1463,8 +1463,8 @@ body {
   position: relative;
   min-height: min(92vh, 860px);
   display: flex;
-  align-items: flex-start;
-  padding: calc(1.25rem + 3.75rem + 2.5rem) 1.25rem 4rem;
+  align-items: center;
+  padding: 5rem 1.25rem 4rem;
   overflow: hidden;
 }
 
