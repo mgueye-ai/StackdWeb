@@ -27,8 +27,11 @@ async function parseJsonResponse(response) {
 }
 
 function isResendDuplicate(status, payload) {
-  const message = String(payload.message || payload.error || "").toLowerCase();
-  return status === 409 || (status === 422 && message.includes("already"));
+  const message = String(payload.message || payload.error || JSON.stringify(payload)).toLowerCase();
+  return (
+    status === 409 ||
+    (status === 422 && (message.includes("already") || message.includes("exist") || message.includes("duplicate")))
+  );
 }
 
 async function saveToSupabase(email, source) {
@@ -66,12 +69,20 @@ async function saveToSupabase(email, source) {
   return { duplicate: false, welcomed: false };
 }
 
+function resendHeaders(apiKey) {
+  return {
+    Authorization: `Bearer ${apiKey}`,
+    "Content-Type": "application/json",
+    "User-Agent": "StackdWeb/1.0",
+  };
+}
+
 async function addContactToSegment(email, segmentId, apiKey) {
   const response = await fetch(
     `https://api.resend.com/contacts/${encodeURIComponent(email)}/segments/${segmentId}`,
     {
       method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}` },
+      headers: { Authorization: `Bearer ${apiKey}`, "User-Agent": "StackdWeb/1.0" },
     }
   );
 
@@ -85,8 +96,8 @@ async function addContactToSegment(email, segmentId, apiKey) {
 }
 
 async function saveToResend(email, source) {
-  const apiKey = process.env.RESEND_API_KEY;
-  const segmentId = process.env.RESEND_SEGMENT_ID;
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const segmentId = process.env.RESEND_SEGMENT_ID?.trim();
 
   if (!apiKey) {
     return { skipped: true };
@@ -97,35 +108,34 @@ async function saveToResend(email, source) {
     throw new Error("Waitlist is not fully configured. Please try again later.");
   }
 
-  const authHeaders = {
-    Authorization: `Bearer ${apiKey}`,
-    "Content-Type": "application/json",
-  };
-
   const createResponse = await fetch("https://api.resend.com/contacts", {
     method: "POST",
-    headers: authHeaders,
+    headers: resendHeaders(apiKey),
     body: JSON.stringify({
       email,
       unsubscribed: false,
-      segments: [{ id: segmentId }],
     }),
   });
 
-  if (createResponse.ok) {
-    const welcomed = await sendResendWelcomeEmail(email, source, apiKey);
-    return { duplicate: false, welcomed };
-  }
-
   const createPayload = await parseJsonResponse(createResponse);
+  const duplicate = isResendDuplicate(createResponse.status, createPayload);
 
-  if (isResendDuplicate(createResponse.status, createPayload)) {
-    await addContactToSegment(email, segmentId, apiKey);
-    return { duplicate: true, welcomed: false };
+  if (!createResponse.ok && !duplicate) {
+    console.error("Resend contact create failed:", createResponse.status, createPayload);
+    throw new Error("Could not subscribe your email. Please try again.");
   }
 
-  console.error("Resend contact create failed:", createResponse.status, createPayload);
-  throw new Error("Could not subscribe your email. Please try again.");
+  const segmentAdded = await addContactToSegment(email, segmentId, apiKey);
+  if (!segmentAdded) {
+    throw new Error("Could not add your email to the waitlist. Please try again.");
+  }
+
+  let welcomed = false;
+  if (!duplicate) {
+    welcomed = await sendResendWelcomeEmail(email, source, apiKey);
+  }
+
+  return { duplicate, welcomed };
 }
 
 function welcomeEmailHtml() {
@@ -155,10 +165,7 @@ async function sendResendWelcomeEmail(email, source, apiKey) {
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
+    headers: resendHeaders(apiKey),
     body: JSON.stringify({
       from,
       to: [email],
@@ -249,9 +256,16 @@ module.exports = async (req, res) => {
     }
 
     if (hasSupabase) {
-      const result = await saveToSupabase(email, source);
-      if (!result.skipped) {
-        duplicate = duplicate || result.duplicate;
+      try {
+        const result = await saveToSupabase(email, source);
+        if (!result.skipped) {
+          duplicate = duplicate || result.duplicate;
+        }
+      } catch (supabaseError) {
+        console.error("Supabase waitlist backup failed:", supabaseError);
+        if (!hasResend) {
+          throw supabaseError;
+        }
       }
     }
 
