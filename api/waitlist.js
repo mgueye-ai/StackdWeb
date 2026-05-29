@@ -1,4 +1,4 @@
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const { getSiteUrl } = require("./lib/site-url");
 const MAX_EMAIL_LENGTH = 254;
 const DEFAULT_FROM = "Stackd <hello@toostackd.com>";
 
@@ -166,43 +166,163 @@ async function saveToResend(email, source) {
 }
 
 function welcomeEmailHtml() {
+  const siteUrl = getSiteUrl();
+  const logoUrl = `${siteUrl}/logo.png`;
+
   return `<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#080808;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#080808;padding:48px 20px;">
-    <tr><td align="center">
-      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:40px 32px;">
-        <tr><td style="color:#f0f0f0;font-size:22px;font-weight:700;letter-spacing:-0.02em;padding-bottom:12px;">You're on the list.</td></tr>
-        <tr><td style="color:#8a8a8a;font-size:16px;line-height:1.7;padding-bottom:24px;">
-          Thanks for joining the Stackd waitlist. We're building the physical savings box that turns spare cash into real financial goals — and you'll be first to know when we launch.
-        </td></tr>
-        <tr><td style="color:#5c5c5c;font-size:13px;line-height:1.6;">
-          No spam. Just launch updates.
-        </td></tr>
-      </table>
-    </td></tr>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="supported-color-schemes" content="dark">
+  <title>Welcome to the Stackd waitlist</title>
+</head>
+<body style="margin:0;padding:0;background-color:#080808;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;-webkit-font-smoothing:antialiased;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">
+    You're on the Stackd waitlist. Be first to know when we launch the physical savings box built for real goals.
+  </div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#080808;padding:40px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+          <!-- Header -->
+          <tr>
+            <td align="center" style="padding-bottom:28px;">
+              <a href="${siteUrl}" style="text-decoration:none;display:inline-block;">
+                <img src="${logoUrl}" width="48" height="48" alt="Stackd" style="display:block;border:0;border-radius:12px;margin:0 auto 10px;" />
+                <span style="color:#f0f0f0;font-size:18px;font-weight:600;letter-spacing:-0.02em;">Stackd</span>
+              </a>
+            </td>
+          </tr>
+          <!-- Main card -->
+          <tr>
+            <td style="background-color:#111111;border:1px solid #222222;border-radius:20px;padding:36px 32px 32px;">
+              <p style="margin:0 0 12px;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a8a;">
+                Waitlist confirmed
+              </p>
+              <h1 style="margin:0 0 16px;font-size:28px;line-height:1.15;font-weight:700;letter-spacing:-0.03em;color:#ffffff;">
+                You're on the list.
+              </h1>
+              <p style="margin:0 0 28px;font-size:16px;line-height:1.7;color:#a3a3a3;">
+                Thanks for joining early. Stackd is the physical savings box that turns spare cash into real financial goals — and you'll be first to know when we launch.
+              </p>
+              <!-- Device preview -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#141414;border:1px solid #222222;border-radius:16px;margin-bottom:28px;">
+                <tr>
+                  <td style="padding:24px 24px 20px;text-align:center;">
+                    <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#5c5c5c;">
+                      Your future savings goal
+                    </p>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:280px;margin:0 auto 14px;background-color:#1a1a1a;border-radius:999px;height:6px;overflow:hidden;">
+                      <tr>
+                        <td width="38%" style="background:linear-gradient(90deg,#cccccc,#ffffff);background-color:#ffffff;border-radius:999px;font-size:0;line-height:0;">&nbsp;</td>
+                        <td style="font-size:0;line-height:0;">&nbsp;</td>
+                      </tr>
+                    </table>
+                    <p style="margin:0;font-size:13px;color:#8a8a8a;">
+                      Tap. Deposit. Watch the bar fill.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              <!-- What's next -->
+              <p style="margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a8a;">
+                What happens next
+              </p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+                <tr>
+                  <td style="padding:0 0 12px;vertical-align:top;">
+                    <span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background-color:#1a1a1a;border:1px solid #2a2a2a;border-radius:999px;color:#ffffff;font-size:11px;font-weight:700;margin-right:10px;">1</span>
+                    <span style="font-size:14px;line-height:1.6;color:#c9c9c9;">We'll email you when Stackd is ready to order.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 0 12px;vertical-align:top;">
+                    <span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background-color:#1a1a1a;border:1px solid #2a2a2a;border-radius:999px;color:#ffffff;font-size:11px;font-weight:700;margin-right:10px;">2</span>
+                    <span style="font-size:14px;line-height:1.6;color:#c9c9c9;">Early supporters get first access to Stackd and Stackd Up.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0;vertical-align:top;">
+                    <span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background-color:#1a1a1a;border:1px solid #2a2a2a;border-radius:999px;color:#ffffff;font-size:11px;font-weight:700;margin-right:10px;">3</span>
+                    <span style="font-size:14px;line-height:1.6;color:#c9c9c9;">No spam — just launch updates and product news.</span>
+                  </td>
+                </tr>
+              </table>
+              <!-- CTA -->
+              <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto 8px;">
+                <tr>
+                  <td align="center" style="border-radius:12px;background-color:#ffffff;">
+                    <a href="${siteUrl}" style="display:inline-block;padding:14px 28px;font-size:15px;font-weight:600;color:#080808;text-decoration:none;border-radius:12px;">
+                      Visit Stackd
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="padding:24px 12px 8px;">
+              <p style="margin:0 0 8px;font-size:12px;line-height:1.6;color:#5c5c5c;">
+                The physical savings box that turns spare cash into real financial goals.
+              </p>
+              <p style="margin:0 0 8px;font-size:12px;line-height:1.6;color:#5c5c5c;">
+                Banking infrastructure powered by Unit
+              </p>
+              <p style="margin:0;font-size:11px;line-height:1.6;color:#444444;">
+                &copy; 2026 Stackd &middot; <a href="${siteUrl}" style="color:#8a8a8a;text-decoration:underline;">toostackd.com</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
   </table>
 </body>
 </html>`;
 }
 
+function welcomeEmailText() {
+  const siteUrl = getSiteUrl();
+  return [
+    "You're on the Stackd waitlist.",
+    "",
+    "Thanks for joining early. Stackd is the physical savings box that turns spare cash into real financial goals — and you'll be first to know when we launch.",
+    "",
+    "What happens next:",
+    "1. We'll email you when Stackd is ready to order.",
+    "2. Early supporters get first access to Stackd and Stackd Up.",
+    "3. No spam — just launch updates and product news.",
+    "",
+    `Visit us: ${siteUrl}`,
+    "",
+    "© 2026 Stackd",
+  ].join("\n");
+}
+
 async function sendResendWelcomeEmail(email, source, apiKey) {
   const from = process.env.RESEND_FROM || DEFAULT_FROM;
+  const replyTo = process.env.RESEND_REPLY_TO || "hello@toostackd.com";
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: resendHeaders(apiKey),
     body: JSON.stringify({
       from,
+      reply_to: replyTo,
       to: [email],
-      subject: "You're on the Stackd waitlist",
+      subject: "Welcome to the Stackd waitlist",
       html: welcomeEmailHtml(),
-      text: "Thanks for joining the Stackd waitlist. You'll be first to know when we launch. No spam — just launch updates.",
+      text: welcomeEmailText(),
       tags: [
         { name: "source", value: source },
         { name: "type", value: "waitlist-welcome" },
       ],
+      headers: {
+        "X-Entity-Ref-ID": `waitlist-${Date.now()}`,
+      },
     }),
   });
 
