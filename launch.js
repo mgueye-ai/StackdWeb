@@ -149,7 +149,8 @@
 
   function initReveal() {
     const revealSelectors = [
-      ".launch-step",
+      ".launch-how__step",
+      ".launch-how__header",
       ".launch-goal",
       ".launch-device-intro__copy",
       ".launch-dashboard",
@@ -171,7 +172,7 @@
     const revealElements = document.querySelectorAll(revealSelectors.join(", "));
     revealElements.forEach((el) => el.classList.add("reveal"));
 
-    document.querySelectorAll(".launch-steps .launch-step, .launch-goals .launch-goal").forEach((el, i) => {
+    document.querySelectorAll(".launch-how__steps .launch-how__step, .launch-goals .launch-goal").forEach((el, i) => {
       el.classList.add(`reveal--delay-${(i % 3) + 1}`);
     });
 
@@ -309,9 +310,39 @@
     });
   }
 
+  function initMobileNav() {
+    const toggle = document.getElementById("nav-toggle");
+    const nav = document.getElementById("mobile-nav");
+    if (!toggle || !nav) return;
+
+    nav.hidden = false;
+
+    function closeNav() {
+      toggle.setAttribute("aria-expanded", "false");
+      nav.classList.remove("is-open");
+      document.body.classList.remove("nav-open");
+    }
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      nav.classList.toggle("is-open", !isOpen);
+      document.body.classList.toggle("nav-open", !isOpen);
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeNav);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeNav();
+    });
+  }
+
   requireLaunchAccess().then((allowed) => {
     if (!allowed) return;
     initHeader();
+    initMobileNav();
     initReveal();
     initProgressBars();
     initCarousels();

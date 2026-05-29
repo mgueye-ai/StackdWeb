@@ -30,10 +30,24 @@
           <a href="#app">App</a>
           <a href="#faq">FAQ</a>
         </nav>
+        <button type="button" class="nav-toggle nav-toggle--launch" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+        </button>
         <a href="#shop" class="header__cta">Shop</a>
       </div>
     </div>
   </header>
+
+  <nav class="mobile-nav mobile-nav--launch" id="mobile-nav" aria-label="Page sections" hidden>
+    <a href="#how-it-works">How it works</a>
+    <a href="#why-stackd">Why Stackd</a>
+    <a href="#goals">Goals</a>
+    <a href="#app">App</a>
+    <a href="#shop">Shop</a>
+    <a href="#faq">FAQ</a>
+  </nav>
 
   <main>
     <section class="launch-hero launch-hero--overlay">
@@ -96,42 +110,81 @@
     </section>
 
     <!-- How it works -->
-    <section class="section" id="how-it-works">
+    <section class="section section--dark launch-how" id="how-it-works">
       <div class="container">
-        <div class="section__header section__header--center">
-          <h2>How it works</h2>
+        <div class="launch-how__header">
+          <p class="eyebrow">How it works</p>
+          <h2>Three steps to real savings.</h2>
+          <p class="launch-how__lead">
+            Set a goal in the app, deposit on your device, and watch visible progress build —
+            on your desk and in your pocket.
+          </p>
         </div>
 
-        <div class="launch-steps">
-          <article class="launch-step">
-            <span class="launch-step__num">1</span>
+        <div class="launch-how__steps">
+          <article class="launch-how__step">
+            <div class="launch-how__step-head">
+              <span class="launch-how__step-num">01</span>
+              <div class="launch-how__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              </div>
+            </div>
             <h3>Choose your goal</h3>
             <p>
-              Set a vacation fund, emergency fund, or custom target in the Stackd app.
+              Create a vacation fund, emergency fund, or custom target in the Stackd app.
               Pick your savings mode and how visible you want progress to be.
             </p>
+            <div class="launch-how__preview" aria-hidden="true">
+              <span class="launch-how__preview-label">Vacation fund</span>
+              <div class="progress-bar progress-bar--sm">
+                <div class="progress-bar__fill" style="width: 28%"></div>
+              </div>
+              <span class="launch-how__preview-meta">$280 / $1,000 · Locked until goal</span>
+            </div>
           </article>
-          <article class="launch-step">
-            <span class="launch-step__num">2</span>
+
+          <article class="launch-how__step">
+            <div class="launch-how__step-head">
+              <span class="launch-how__step-num">02</span>
+              <div class="launch-how__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              </div>
+            </div>
             <h3>Deposit on Stackd</h3>
             <p>
               Tap your card for the amount you chose, or slide bills into Stackd Up.
               Your device counts, verifies, and deposits into your linked account.
             </p>
+            <div class="launch-how__preview launch-how__preview--device" aria-hidden="true">
+              <span class="launch-how__preview-chip">+$20 · Card tap</span>
+              <span class="launch-how__preview-chip">Wi‑Fi · Connected</span>
+            </div>
           </article>
-          <article class="launch-step">
-            <span class="launch-step__num">3</span>
+
+          <article class="launch-how__step">
+            <div class="launch-how__step-head">
+              <span class="launch-how__step-num">03</span>
+              <div class="launch-how__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19V5"/><path d="M4 19h16"/><rect x="7" y="12" width="3" height="7" rx="0.5"/><rect x="12" y="8" width="3" height="11" rx="0.5"/><rect x="17" y="5" width="3" height="14" rx="0.5"/></svg>
+              </div>
+            </div>
             <h3>Watch the bar fill</h3>
             <p>
               The front LED progress bar grows with every deposit. Hit 100% and the entire
               bar illuminates — plus a notification in the app.
             </p>
+            <div class="launch-how__preview" aria-hidden="true">
+              <div class="launch-how__led">
+                <span class="launch-how__led-fill" style="width: 72%"></span>
+              </div>
+              <span class="launch-how__preview-meta">72% to goal · Device synced</span>
+            </div>
           </article>
         </div>
 
-        <div class="launch-inline-cta">
-          <a href="#shop" class="btn btn--primary btn--lg">Get Stackd</a>
-          <span class="launch-inline-cta__note">30-day satisfaction guarantee</span>
+        <div class="launch-how__cta">
+          <a href="#shop" class="btn btn--hero">Get Stackd</a>
+          <span class="launch-how__cta-note">30-day satisfaction guarantee · Free app included</span>
         </div>
       </div>
     </section>

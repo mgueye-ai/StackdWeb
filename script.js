@@ -260,3 +260,34 @@
 
   initCarousels();
 })();
+
+function initMobileNav() {
+  const toggle = document.getElementById("nav-toggle");
+  const nav = document.getElementById("mobile-nav");
+  if (!toggle || !nav) return;
+
+  nav.hidden = false;
+
+  function closeNav() {
+    toggle.setAttribute("aria-expanded", "false");
+    nav.classList.remove("is-open");
+    document.body.classList.remove("nav-open");
+  }
+
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    nav.classList.toggle("is-open", !isOpen);
+    document.body.classList.toggle("nav-open", !isOpen);
+  });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeNav);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeNav();
+  });
+}
+
+initMobileNav();
