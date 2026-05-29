@@ -43,6 +43,104 @@ async function savePaidOrder(order) {
   return false;
 }
 
+async function parseJsonResponse(response) {
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
+async function getOrders({ status, limit = 100, offset = 0 } = {}) {
+  const safeLimit = Math.min(Math.max(Number(limit) || 100, 1), 500);
+  const safeOffset = Math.max(Number(offset) || 0, 0);
+
+  let path = `orders?select=*&order=created_at.desc&limit=${safeLimit}&offset=${safeOffset}`;
+  if (status) {
+    path += `&status=eq.${encodeURIComponent(status)}`;
+  }
+
+  const response = await supabaseRequest(path, { method: "GET" });
+  if (!response) return null;
+
+  if (!response.ok) {
+    const detail = await response.text();
+    console.error("Supabase orders fetch failed:", response.status, detail);
+    return null;
+  }
+
+  return parseJsonResponse(response);
+}
+
+async function updateOrderStatus(id, status) {
+  const response = await supabaseRequest(`orders?id=eq.${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ status }),
+  });
+
+  if (!response) return false;
+
+  if (!response.ok) {
+    const detail = await response.text();
+    console.error("Supabase order update failed:", response.status, detail);
+    return false;
+  }
+
+  return true;
+}
+
+async function getWaitlistStats() {
+  const response = await supabaseRequest("waitlist_stats?select=*", { method: "GET" });
+  if (!response) return null;
+
+  if (!response.ok) {
+    const detail = await response.text();
+    console.error("Supabase waitlist stats failed:", response.status, detail);
+    return null;
+  }
+
+  const rows = await parseJsonResponse(response);
+  return Array.isArray(rows) ? rows[0] || null : null;
+}
+
+async function getAllPaidOrders() {
+  const response = await supabaseRequest(
+    "orders?select=id,product,amount_cents,status,created_at,paid_at&status=eq.paid&order=created_at.asc",
+    { method: "GET" }
+  );
+
+  if (!response) return null;
+
+  if (!response.ok) {
+    const detail = await response.text();
+    console.error("Supabase paid orders fetch failed:", response.status, detail);
+    return null;
+  }
+
+  return parseJsonResponse(response);
+}
+
+async function getOrderCounts() {
+  const response = await supabaseRequest("orders?select=status,product,amount_cents", {
+    method: "GET",
+  });
+
+  if (!response) return null;
+
+  if (!response.ok) {
+    const detail = await response.text();
+    console.error("Supabase order counts failed:", response.status, detail);
+    return null;
+  }
+
+  return parseJsonResponse(response);
+}
+
 module.exports = {
   savePaidOrder,
+  getOrders,
+  updateOrderStatus,
+  getWaitlistStats,
+  getAllPaidOrders,
+  getOrderCounts,
 };

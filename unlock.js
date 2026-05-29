@@ -82,7 +82,7 @@
         throw new Error(data.error || "Invalid passcode.");
       }
 
-      window.location.href = "launch.html";
+      window.location.href = "admin.html";
     } catch (error) {
       let errorText = error.message || "Invalid passcode.";
 

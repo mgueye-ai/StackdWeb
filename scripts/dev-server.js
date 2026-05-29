@@ -12,6 +12,8 @@ const API_ROUTES = {
   "/api/create-checkout": "api/create-checkout.js",
   "/api/verify-session": "api/verify-session.js",
   "/api/stripe-webhook": "api/stripe-webhook.js",
+  "/api/admin/stats": "api/admin/stats.js",
+  "/api/admin/orders": "api/admin/orders.js",
 };
 
 const MIME = {
