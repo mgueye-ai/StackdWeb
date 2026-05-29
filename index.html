@@ -46,38 +46,51 @@
 
   <main>
     <section class="hero">
-      <div class="container">
+      <div class="container hero__layout">
         <div class="hero__intro">
-          <p class="eyebrow">Physical savings, digital goals</p>
+          <p class="eyebrow hero__eyebrow">Physical savings, digital goals</p>
           <h1>The savings jar.<br />Rebuilt for today.</h1>
           <p class="hero__lead">
             A modern savings jar, goal tracker, and fintech app — in one matte black box.
             Insert cash or tap your card, deposit into your linked account, and watch your
             LED progress bar fill as you save.
           </p>
-          <form class="waitlist" id="waitlist-form">
-            <label for="email" class="sr-only">Email address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-              autocomplete="email"
-            />
-            <input
-              type="text"
-              name="website"
-              class="hp-field"
-              tabindex="-1"
-              autocomplete="off"
-              aria-hidden="true"
-            />
-            <button type="submit">Join the waitlist</button>
-          </form>
-          <p class="waitlist__note" id="waitlist-message" aria-live="polite">Be first to know when Stackd launches.</p>
+          <div class="hero__cta-panel">
+            <form class="waitlist" id="waitlist-form">
+              <label for="email" class="sr-only">Email address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                autocomplete="email"
+              />
+              <input
+                type="text"
+                name="website"
+                class="hp-field"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+              />
+              <button type="submit">Join the waitlist</button>
+            </form>
+            <p class="waitlist__note" id="waitlist-message" aria-live="polite">Be first to know when Stackd launches.</p>
+          </div>
         </div>
 
+        <div class="hero__spotlight" aria-hidden="true">
+          <div class="hero__spotlight-glow"></div>
+          <img
+            src="assets/stackd-up-proto.png"
+            alt=""
+            class="hero__spotlight-img"
+          />
+        </div>
+
+        <div class="hero__models">
+          <p class="hero__models-label">Two models. One mission.</p>
         <div class="carousel">
           <div class="carousel__track hero__products">
           <article class="product-card">
@@ -121,6 +134,7 @@
           </article>
           </div>
           <div class="carousel__dots" aria-hidden="true"></div>
+        </div>
         </div>
       </div>
     </section>
