@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order confirmed — Stackd</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="checkout-result">
+    <div class="container">
+      <img src="logo.png" alt="" class="cta__logo" />
+      <p class="eyebrow">Order confirmed</p>
+      <h1>Thank you.</h1>
+      <p id="success-message" class="checkout-result__text">Confirming your order…</p>
+      <a href="index.html" class="checkout-result__link">Back to Stackd</a>
+    </div>
+  </main>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+      const messageEl = document.getElementById("success-message");
+
+      if (!sessionId) {
+        messageEl.textContent = "Your payment was received. We'll send a confirmation email shortly.";
+        return;
+      }
+
+      fetch("/api/verify-session?session_id=" + encodeURIComponent(sessionId))
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.ok && data.product) {
+            messageEl.textContent =
+              "Your " + data.product.name + " order is confirmed" +
+              (data.email ? " — we'll reach out at " + data.email + "." : ".");
+          } else {
+            messageEl.textContent = "Your payment was received. We'll send a confirmation email shortly.";
+          }
+        })
+        .catch(function () {
+          messageEl.textContent = "Your payment was received. We'll send a confirmation email shortly.";
+        });
+    })();
+  </script>
+</body>
+</html>

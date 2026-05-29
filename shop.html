@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shop Stackd — The physical savings box that turns spare cash into real financial goals." />
+  <title>Shop — Stackd</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="header header--scrolled">
+    <div class="container header__inner">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Stackd" class="brand__logo" />
+        <span class="brand__name">Stackd</span>
+      </a>
+      <a href="index.html" class="shop-back">← Back</a>
+    </div>
+  </header>
+
+  <main class="shop">
+    <div class="container">
+      <div class="shop__header">
+        <p class="eyebrow">Shop</p>
+        <h1>Choose your Stackd.</h1>
+        <p class="shop__lead">
+          One-time purchase. Free app access on iOS and Android. Banking powered by Unit.
+        </p>
+      </div>
+
+      <div class="shop-grid">
+        <article class="shop-card">
+          <div class="shop-card__visual">
+            <img src="assets/stackd-proto.png" alt="Stackd compact model" class="shop-card__img" />
+          </div>
+          <div class="shop-card__body">
+            <div class="product-card__meta">
+              <h2 class="shop-card__name">Stackd</h2>
+              <span class="product-card__tag">Compact</span>
+            </div>
+            <p class="shop-card__price">$49</p>
+            <p class="shop-card__desc">
+              Enter the amount in the app, tap your card, and watch the LED bar climb toward your goal.
+            </p>
+            <ul class="shop-card__features">
+              <li>Card tap deposits</li>
+              <li>Front LED progress bar</li>
+              <li>Wi‑Fi connected</li>
+            </ul>
+            <button type="button" class="shop-buy" data-product="stackd">Buy Stackd — $49</button>
+            <p class="shop-card__note" aria-live="polite"></p>
+          </div>
+        </article>
+
+        <article class="shop-card shop-card--featured">
+          <span class="shop-card__badge">Most popular</span>
+          <div class="shop-card__visual">
+            <img src="assets/stackd-up-proto.png" alt="Stackd Up with cash slot" class="shop-card__img" />
+          </div>
+          <div class="shop-card__body">
+            <div class="product-card__meta">
+              <h2 class="shop-card__name">Stackd Up</h2>
+              <span class="product-card__tag">Full size</span>
+            </div>
+            <p class="shop-card__price">$99</p>
+            <p class="shop-card__desc">
+              Everything in Stackd, plus a built-in cash slot with bill validation and counting.
+            </p>
+            <ul class="shop-card__features">
+              <li>Everything in Stackd</li>
+              <li>Cash acceptor + validation</li>
+              <li>Recessed bill slot</li>
+            </ul>
+            <button type="button" class="shop-buy shop-buy--primary" data-product="stackd_up">Buy Stackd Up — $99</button>
+            <p class="shop-card__note" aria-live="polite"></p>
+          </div>
+        </article>
+      </div>
+
+      <p class="shop__footer-note">
+        Secure checkout powered by Stripe · 30-day satisfaction guarantee
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="logo.png" alt="" class="footer__logo" />
+        <span>Stackd</span>
+      </div>
+      <p class="footer__copy">&copy; 2026 Stackd. All rights reserved.</p>
+      <p class="footer__note">Banking powered by <a href="https://www.unit.co/" target="_blank" rel="noopener noreferrer">Unit</a></p>
+    </div>
+  </footer>
+
+  <script src="shop.js"></script>
+</body>
+</html>
