@@ -165,8 +165,7 @@
       ".launch-reason",
       ".faq-item",
       ".cta",
-      ".launch-hero__center",
-      ".launch-hero__banner",
+      ".launch-hero__content",
     ];
 
     const revealElements = document.querySelectorAll(revealSelectors.join(", "));

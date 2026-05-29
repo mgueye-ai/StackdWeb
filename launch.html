@@ -16,41 +16,45 @@
 <body class="launch-page">
   <div class="noise" aria-hidden="true"></div>
 
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="launch.html" class="brand">
-        <img src="logo.png" alt="Stackd" class="brand__logo" />
-        <span class="brand__name">Stackd</span>
-      </a>
-      <nav class="header__nav" aria-label="Page sections">
-        <a href="#how-it-works">How it works</a>
-        <a href="#why-stackd">Why Stackd</a>
-        <a href="#goals">Goals</a>
-        <a href="#app">App</a>
-        <a href="#shop">Shop</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <a href="#shop" class="header__cta">Shop now</a>
+  <header class="header header--launch" id="header">
+    <div class="header__shell">
+      <div class="header__inner">
+        <a href="launch.html" class="brand">
+          <img src="logo.png" alt="Stackd" class="brand__logo" />
+          <span class="brand__name">Stackd</span>
+        </a>
+        <nav class="header__nav" aria-label="Page sections">
+          <a href="#how-it-works">How it works</a>
+          <a href="#why-stackd">Why Stackd</a>
+          <a href="#goals">Goals</a>
+          <a href="#app">App</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a href="#shop" class="header__cta">Shop</a>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- Hero (Brick-style centered) -->
-    <section class="launch-hero launch-hero--centered">
-      <div class="container">
-        <div class="launch-hero__center">
-          <h1>Save for<br />real.</h1>
-          <p class="launch-hero__sub">
-            Stackd is the physical savings box that turns spare cash into real financial goals.
-          </p>
-        </div>
-        <div class="launch-hero__banner">
-          <img
-            src="assets/stackd-hero-lifestyle.png"
-            alt="Stackd device on a modern desk with glowing LED progress bar"
-            class="launch-hero__banner-img"
-          />
-        </div>
+    <section class="launch-hero launch-hero--overlay">
+      <div class="launch-hero__media" aria-hidden="true">
+        <img
+          src="assets/stackd-hero-pro.png"
+          alt=""
+          class="launch-hero__bg"
+        />
+        <div class="launch-hero__scrim"></div>
+      </div>
+      <div class="container launch-hero__content">
+        <p class="launch-hero__proof">
+          <span class="launch-hero__stars" aria-hidden="true">★★★★★</span>
+          One-time purchase · Free app · No subscription
+        </p>
+        <h1>Save for<br />real.</h1>
+        <p class="launch-hero__sub">
+          Stackd is the physical savings box that turns spare cash into real financial goals.
+        </p>
+        <a href="#shop" class="btn btn--hero">Shop now</a>
       </div>
     </section>
 
