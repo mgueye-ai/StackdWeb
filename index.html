@@ -421,11 +421,38 @@
         <img src="logo.png" alt="" class="footer__logo" />
         <span>Stackd</span>
       </div>
-      <p class="footer__copy">&copy; 2026 Stackd. All rights reserved.</p>
+      <p class="footer__copy">
+        &copy; 2026 Stackd. All rights reserved.
+        <button type="button" class="footer__unlock" id="launch-unlock">Admin</button>
+      </p>
       <p class="footer__note">Banking powered by <a href="https://www.unit.co/" target="_blank" rel="noopener noreferrer">Unit</a></p>
     </div>
   </footer>
 
+  <div class="unlock-modal" id="unlock-modal" hidden>
+    <div class="unlock-modal__backdrop" data-close aria-hidden="true"></div>
+    <div class="unlock-modal__panel" role="dialog" aria-modal="true" aria-labelledby="unlock-title">
+      <button type="button" class="unlock-modal__close" data-close aria-label="Close">&times;</button>
+      <h2 class="unlock-modal__title" id="unlock-title">Enter passcode</h2>
+      <form class="unlock-form" id="unlock-form">
+        <label for="unlock-passcode" class="sr-only">Passcode</label>
+        <input
+          type="password"
+          id="unlock-passcode"
+          name="passcode"
+          inputmode="numeric"
+          autocomplete="off"
+          maxlength="8"
+          placeholder="Passcode"
+          required
+        />
+        <button type="submit">Enter</button>
+      </form>
+      <p class="unlock-modal__message" id="unlock-message" aria-live="polite"></p>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script src="unlock.js"></script>
 </body>
 </html>

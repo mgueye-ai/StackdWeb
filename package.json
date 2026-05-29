@@ -1,6 +1,10 @@
 {
   "name": "stackdweb",
   "private": true,
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "dev:vercel": "vercel dev"
+  },
   "dependencies": {
     "stripe": "^17.7.0"
   }
