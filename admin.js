@@ -207,6 +207,87 @@
     }
   }
 
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function openOrderModal(orderId) {
+    const order = allOrders.find((o) => o.id === orderId);
+    const modal = document.getElementById("order-modal");
+    if (!order || !modal) return;
+
+    const statusEl = document.getElementById("order-modal-status");
+    const detailsEl = document.getElementById("order-modal-details");
+    const actionsEl = document.getElementById("order-modal-actions");
+    const titleEl = document.getElementById("order-modal-title");
+
+    if (titleEl) titleEl.textContent = `Order #${order.id}`;
+
+    if (statusEl) {
+      statusEl.textContent = STATUS_LABELS[order.status] || order.status;
+      statusEl.className = `admin-status admin-status--${order.status}`;
+    }
+
+    const rows = [
+      { label: "Customer", value: order.email || "—" },
+      { label: "Product", value: PRODUCT_LABELS[order.product] || order.product },
+      { label: "Amount", value: formatMoney(order.amount_cents) },
+      { label: "Currency", value: (order.currency || "usd").toUpperCase() },
+      { label: "Created", value: formatDate(order.created_at) },
+      { label: "Paid", value: formatDate(order.paid_at) },
+      { label: "Stripe session", value: order.stripe_session_id || "—", mono: true },
+      { label: "Payment intent", value: order.stripe_payment_intent_id || "—", mono: true },
+    ];
+
+    if (detailsEl) {
+      detailsEl.innerHTML = rows
+        .map(
+          (row) => `
+          <div class="admin-order-details__row">
+            <dt>${row.label}</dt>
+            <dd${row.mono ? ' class="admin-order-details__mono"' : ""}>${escapeHtml(row.value)}</dd>
+          </div>`
+        )
+        .join("");
+    }
+
+    if (actionsEl) {
+      actionsEl.innerHTML = order.stripe_session_id
+        ? `<a href="https://dashboard.stripe.com/search?query=${encodeURIComponent(order.stripe_session_id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--ghost">Open in Stripe</a>`
+        : "";
+    }
+
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    modal.querySelector(".admin-order-modal__close")?.focus();
+  }
+
+  function closeOrderModal() {
+    const modal = document.getElementById("order-modal");
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+
+  function initOrderModal() {
+    const modal = document.getElementById("order-modal");
+    if (!modal) return;
+
+    modal.querySelectorAll("[data-close]").forEach((el) => {
+      el.addEventListener("click", closeOrderModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !modal.hidden) {
+        closeOrderModal();
+      }
+    });
+  }
+
   function getFilteredOrders() {
     const statusFilter = document.getElementById("order-status-filter")?.value || "";
     const query = document.getElementById("order-search")?.value.trim().toLowerCase() || "";
@@ -232,9 +313,7 @@
 
     tbody.innerHTML = orders
       .map((order) => {
-        const stripeLink = order.stripe_session_id
-          ? `<a href="https://dashboard.stripe.com/search?query=${encodeURIComponent(order.stripe_session_id)}" target="_blank" rel="noopener noreferrer" class="admin-link">View</a>`
-          : "—";
+        const viewButton = `<button type="button" class="admin-link admin-link--btn" data-view-order="${order.id}">View</button>`;
 
         const statusOptions = Object.keys(STATUS_LABELS)
           .map(
@@ -255,7 +334,7 @@
               ${statusOptions}
             </select>
           </td>
-          <td>${stripeLink}</td>
+          <td>${viewButton}</td>
         </tr>`;
       })
       .join("");
@@ -336,6 +415,14 @@
       renderOrdersTable(getFilteredOrders());
     });
 
+    document.getElementById("orders-body")?.addEventListener("click", (event) => {
+      const viewBtn = event.target.closest("[data-view-order]");
+      if (viewBtn) {
+        openOrderModal(Number(viewBtn.dataset.viewOrder));
+        return;
+      }
+    });
+
     document.getElementById("orders-body")?.addEventListener("change", (event) => {
       const select = event.target.closest(".admin-status-select");
       if (!select) return;
@@ -353,6 +440,7 @@
 
     initNav();
     initOrdersPanel();
+    initOrderModal();
 
     document.getElementById("refresh-stats")?.addEventListener("click", loadStats);
 
