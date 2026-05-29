@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Stackd — The physical savings box that turns spare cash into real financial goals. Coming soon." />
+  <title>Stackd — Coming Soon</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#" class="brand">
+        <img src="logo.png" alt="Stackd" class="brand__logo" />
+        <span class="brand__name">Stackd</span>
+      </a>
+      <span class="badge">Coming Soon</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero__intro">
+          <p class="eyebrow">Physical savings, digital goals</p>
+          <h1>The savings jar.<br />Rebuilt for today.</h1>
+          <p class="hero__lead">
+            Insert cash or tap your card. Watch your progress light up.
+            Stackd turns everyday saving into something you can see, feel, and stick with.
+          </p>
+          <form class="waitlist" id="waitlist-form">
+            <label for="email" class="sr-only">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              autocomplete="email"
+            />
+            <button type="submit">Join the waitlist</button>
+          </form>
+          <p class="waitlist__note" id="waitlist-message">Be first to know when Stackd launches.</p>
+        </div>
+
+        <div class="hero__products">
+          <article class="product-card">
+            <div class="product-card__visual">
+              <img
+                src="assets/stackd-proto.png"
+                alt="Stackd base model with LED progress bar"
+                class="product-card__img"
+              />
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Stackd</h3>
+              <p class="product-card__desc">
+                The base model. Tap your card to deposit, track goals in the app, and watch the front LED bar fill as you save.
+              </p>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-card__visual">
+              <img
+                src="assets/stackd-up-proto.png"
+                alt="Stackd Up model with cash slot and LED progress bar"
+                class="product-card__img"
+              />
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Stackd Up</h3>
+              <p class="product-card__desc">
+                Everything in Stackd, plus a built-in cash slot. Insert bills, get them counted and verified, and deposited straight into your linked account.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="tagline">
+      <div class="container">
+        <blockquote>
+          “The physical savings box that turns spare cash into real financial goals.”
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="section__header">
+          <p class="eyebrow">How it works</p>
+          <h2>Save in seconds.<br />Track for real.</h2>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <span class="step__num">01</span>
+            <h3>Set your goal in the app</h3>
+            <p>Choose an amount — vacation, emergency fund, tuition, or anything custom. Pick how locked you want your savings to be.</p>
+          </article>
+          <article class="step">
+            <span class="step__num">02</span>
+            <h3>Deposit on the device</h3>
+            <p>Slide in cash or tap your card for the amount you chose. Stackd counts, verifies, and deposits into your linked account.</p>
+          </article>
+          <article class="step">
+            <span class="step__num">03</span>
+            <h3>Watch the bar fill up</h3>
+            <p>The front LED progress bar grows with every deposit. Hit 100% and the entire bar illuminates — plus an app notification.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="device">
+      <div class="container">
+        <div class="split">
+          <div class="split__content">
+            <p class="eyebrow">The device</p>
+            <h2>Matte black.<br />Minimal. Intentional.</h2>
+            <p>
+              A rounded, matte black box designed to sit on your desk, shelf, or nightstand —
+              not hide in a drawer. A recessed cash slot across the top. Tap-to-pay on the surface.
+              Your logo and a front LED bar that makes progress impossible to ignore.
+            </p>
+            <ul class="feature-list">
+              <li>Cash acceptor with bill validation</li>
+              <li>Card tap deposits via the app</li>
+              <li>Wi‑Fi connected progress display</li>
+              <li>Secure internal storage</li>
+            </ul>
+          </div>
+          <div class="device-showcase">
+            <img
+              src="assets/stackd-proto.png"
+              alt="Stackd device showing LED progress bar"
+              class="device-showcase__img"
+            />
+            <p class="device-showcase__caption">Stackd — LED progress bar on every deposit</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="app">
+      <div class="container">
+        <div class="section__header">
+          <p class="eyebrow">App &amp; dashboard</p>
+          <h2>Everything in your pocket.</h2>
+          <p class="section__desc">Control goals, deposits, and your device from iOS and Android.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card__icon">◎</div>
+            <h3>Dashboard</h3>
+            <p>Current savings, goal amount, progress percentage, deposit history, and account balance — all in one view.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon">◈</div>
+            <h3>Goal creation</h3>
+            <p>Vacation fund, emergency fund, car, house, or fully custom goals tailored to what you're building toward.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon">⬡</div>
+            <h3>Device management</h3>
+            <p>Connect or disconnect your Stackd, push firmware updates, review activity logs, and manage security settings.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="modes">
+      <div class="container">
+        <div class="section__header">
+          <p class="eyebrow">Savings modes</p>
+          <h2>Save on your terms.</h2>
+        </div>
+
+        <div class="modes">
+          <article class="mode">
+            <h3>Locked until goal</h3>
+            <p>Funds stay put until you hit your target. Saving $2,000? You can't withdraw at $1,500 — unlocks only at $2,000.</p>
+          </article>
+          <article class="mode">
+            <h3>Locked until date</h3>
+            <p>Christmas, tuition, vacation — pick a date and your money unlocks automatically when it arrives.</p>
+          </article>
+          <article class="mode">
+            <h3>Standard savings</h3>
+            <p>Deposit anytime, withdraw anytime. No restrictions — just a beautiful way to save with visible progress.</p>
+          </article>
+        </div>
+
+        <div class="incentive">
+          <p>
+            <strong>Early withdrawal fee</strong> — Break a locked commitment before your goal or date?
+            A small penalty applies. Built to reduce impulse withdrawals and keep you committed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visibility">
+      <div class="container split split--reverse">
+        <div class="split__content">
+          <p class="eyebrow">Goal visibility</p>
+          <h2>See the numbers.<br />Or don't.</h2>
+          <div class="visibility-options">
+            <div class="visibility-option">
+              <h3>Visible mode</h3>
+              <p>Total saved, progress percentage, and goal amount — full transparency.</p>
+            </div>
+            <div class="visibility-option">
+              <h3>Hidden amount mode</h3>
+              <p>Progress bar only. No dollar amounts on the device. Save first, check later.</p>
+            </div>
+          </div>
+        </div>
+        <div class="visibility-visual">
+          <div class="visibility-panel visibility-panel--visible">
+            <span class="visibility-panel__tag">Visible</span>
+            <div class="progress-bar progress-bar--sm">
+              <div class="progress-bar__fill" style="width: 42%"></div>
+            </div>
+            <span>$420 / $1,000 · 42%</span>
+          </div>
+          <div class="visibility-panel visibility-panel--hidden">
+            <span class="visibility-panel__tag">Hidden</span>
+            <div class="progress-bar progress-bar--sm">
+              <div class="progress-bar__fill" style="width: 42%"></div>
+            </div>
+            <span>Progress only</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--cta">
+      <div class="container cta">
+        <img src="logo.png" alt="" class="cta__logo" />
+        <h2>Stackd is coming.</h2>
+        <p>We're building the bridge between physical cash and digital savings — powered by modern banking infrastructure.</p>
+        <form class="waitlist waitlist--center" id="waitlist-form-bottom">
+          <label for="email-bottom" class="sr-only">Email address</label>
+          <input
+            type="email"
+            id="email-bottom"
+            name="email"
+            placeholder="Enter your email"
+            required
+            autocomplete="email"
+          />
+          <button type="submit">Notify me at launch</button>
+        </form>
+        <p class="waitlist__note" id="waitlist-message-bottom">No spam. Just launch updates.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="logo.png" alt="" class="footer__logo" />
+        <span>Stackd</span>
+      </div>
+      <p class="footer__copy">&copy; 2026 Stackd. All rights reserved.</p>
+      <p class="footer__note">Banking powered by <a href="https://www.unit.co/" target="_blank" rel="noopener noreferrer">Unit</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
