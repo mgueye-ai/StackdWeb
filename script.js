@@ -27,7 +27,7 @@
   });
 
   const revealElements = document.querySelectorAll(
-    ".step, .card, .mode, .split__content, .device-showcase, .product-card, .visibility-panel, .section__header"
+    ".step, .mode, .split__content, .device-showcase, .product-card, .visibility-panel, .section__header"
   );
 
   revealElements.forEach((el) => el.classList.add("reveal"));
