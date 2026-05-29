@@ -1463,9 +1463,18 @@ body {
   position: relative;
   min-height: min(92vh, 860px);
   display: flex;
-  align-items: center;
-  padding: calc(var(--header-h) + 2rem) 0 4rem;
+  align-items: flex-start;
+  padding: calc(1.25rem + 3.75rem + 2.5rem) 1.25rem 4rem;
   overflow: hidden;
+}
+
+.launch-hero__align {
+  position: relative;
+  z-index: 1;
+  width: min(calc(100vw - 2.5rem), 920px);
+  margin-inline: auto;
+  padding-left: 1rem;
+  padding-right: 0.65rem;
 }
 
 .launch-hero__media {
@@ -1493,8 +1502,8 @@ body {
 .launch-hero__content {
   position: relative;
   z-index: 1;
-  max-width: 34rem;
-  padding-top: 1rem;
+  max-width: 32rem;
+  text-align: left;
 }
 
 .launch-hero__proof {
@@ -2345,7 +2354,13 @@ body.modal-open {
   .launch-hero--overlay {
     min-height: min(88vh, 720px);
     align-items: flex-end;
-    padding-bottom: 3rem;
+    padding: 0 0.85rem 3rem;
+  }
+
+  .launch-hero__align {
+    width: 100%;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
   }
 
   .launch-hero__bg {
