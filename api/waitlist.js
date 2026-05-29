@@ -42,6 +42,20 @@ async function saveToSupabase(email, source) {
     return { skipped: true };
   }
 
+  let role = "";
+  try {
+    role = JSON.parse(Buffer.from(key.split(".")[1], "base64").toString()).role;
+  } catch {
+    role = "";
+  }
+
+  if (role !== "service_role") {
+    console.error(
+      "SUPABASE_SERVICE_ROLE_KEY is not a service_role key. Use Project Settings → API → service_role secret."
+    );
+    return { skipped: true, misconfigured: true };
+  }
+
   const response = await fetch(`${url.replace(/\/$/, "")}/rest/v1/waitlist_signups`, {
     method: "POST",
     headers: {
@@ -95,6 +109,11 @@ async function addContactToSegment(email, segmentId, apiKey) {
   return false;
 }
 
+function isRestrictedResendKey(payload) {
+  const message = String(payload?.message || payload?.error || "").toLowerCase();
+  return payload?.name === "restricted_api_key" || message.includes("restricted to only send");
+}
+
 async function saveToResend(email, source) {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const segmentId = process.env.RESEND_SEGMENT_ID?.trim();
@@ -121,6 +140,14 @@ async function saveToResend(email, source) {
   const duplicate = isResendDuplicate(createResponse.status, createPayload);
 
   if (!createResponse.ok && !duplicate) {
+    if (createResponse.status === 401 && isRestrictedResendKey(createPayload)) {
+      console.error(
+        "Resend API key is send-only. Create a Full access key in Resend → API Keys for contact/segment sync."
+      );
+      const welcomed = await sendResendWelcomeEmail(email, source, apiKey);
+      return { duplicate: false, welcomed, segmentSynced: false };
+    }
+
     console.error("Resend contact create failed:", createResponse.status, createPayload);
     throw new Error("Could not subscribe your email. Please try again.");
   }
@@ -135,7 +162,7 @@ async function saveToResend(email, source) {
     welcomed = await sendResendWelcomeEmail(email, source, apiKey);
   }
 
-  return { duplicate, welcomed };
+  return { duplicate, welcomed, segmentSynced: true };
 }
 
 function welcomeEmailHtml() {
@@ -246,19 +273,23 @@ module.exports = async (req, res) => {
   try {
     let duplicate = false;
     let welcomed = false;
+    let segmentSynced = false;
+    let storedInSupabase = false;
 
     if (hasResend) {
       const result = await saveToResend(email, source);
       if (!result.skipped) {
         duplicate = duplicate || result.duplicate;
         welcomed = welcomed || result.welcomed;
+        segmentSynced = segmentSynced || result.segmentSynced !== false;
       }
     }
 
     if (hasSupabase) {
       try {
         const result = await saveToSupabase(email, source);
-        if (!result.skipped) {
+        if (!result.skipped && !result.misconfigured) {
+          storedInSupabase = true;
           duplicate = duplicate || result.duplicate;
         }
       } catch (supabaseError) {
@@ -267,6 +298,10 @@ module.exports = async (req, res) => {
           throw supabaseError;
         }
       }
+    }
+
+    if (!segmentSynced && !storedInSupabase && !(hasResend && welcomed)) {
+      throw new Error("Waitlist is not fully configured. Please try again later.");
     }
 
     let message;
