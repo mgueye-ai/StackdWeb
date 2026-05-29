@@ -41,11 +41,11 @@
   </header>
 
   <nav class="mobile-nav mobile-nav--launch" id="mobile-nav" aria-label="Page sections" hidden>
+    <a href="#shop" class="header__cta mobile-nav__cta">Shop</a>
     <a href="#how-it-works">How it works</a>
     <a href="#why-stackd">Why Stackd</a>
     <a href="#goals">Goals</a>
     <a href="#app">App</a>
-    <a href="#shop">Shop</a>
     <a href="#faq">FAQ</a>
   </nav>
 
@@ -203,15 +203,50 @@
 
         <div class="launch-compare">
           <div class="launch-compare__col launch-compare__col--weak">
+            <span class="launch-compare__tag">Without Stackd</span>
             <h3>Other ways to save</h3>
-            <ul>
-              <li><strong>Auto-transfers</strong> — Out of sight, out of mind.</li>
-              <li><strong>Savings apps</strong> — Easy to ignore or uninstall.</li>
-              <li><strong>Cash in a drawer</strong> — No progress, no accountability.</li>
-              <li><strong>Spreadsheets</strong> — Manual updates you stop doing.</li>
+            <p class="launch-compare__intro">Easy to start — hard to stick with.</p>
+            <ul class="launch-compare__list">
+              <li class="launch-compare__item">
+                <span class="launch-compare__item-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </span>
+                <div class="launch-compare__item-body">
+                  <strong>Auto-transfers</strong>
+                  <p>Out of sight, out of mind.</p>
+                </div>
+              </li>
+              <li class="launch-compare__item">
+                <span class="launch-compare__item-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </span>
+                <div class="launch-compare__item-body">
+                  <strong>Savings apps</strong>
+                  <p>Easy to ignore or uninstall.</p>
+                </div>
+              </li>
+              <li class="launch-compare__item">
+                <span class="launch-compare__item-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </span>
+                <div class="launch-compare__item-body">
+                  <strong>Cash in a drawer</strong>
+                  <p>No progress, no accountability.</p>
+                </div>
+              </li>
+              <li class="launch-compare__item">
+                <span class="launch-compare__item-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </span>
+                <div class="launch-compare__item-body">
+                  <strong>Spreadsheets</strong>
+                  <p>Manual updates you stop doing.</p>
+                </div>
+              </li>
             </ul>
           </div>
           <div class="launch-compare__col launch-compare__col--strong">
+            <span class="launch-compare__tag">With Stackd</span>
             <h3>Stackd</h3>
             <p class="launch-compare__lead">
               Stackd lets you leave willpower behind — turning spare cash into visible progress
@@ -239,7 +274,8 @@
           </p>
         </div>
 
-        <div class="launch-goals">
+        <div class="carousel">
+          <div class="carousel__track launch-goals">
           <article class="launch-goal">
             <h3>Vacation fund</h3>
             <p class="launch-goal__meta">Locked until goal · $3,000 target</p>
@@ -270,6 +306,8 @@
             <p class="launch-goal__meta">Locked until date · Semester start</p>
             <p>Time-bound saving with automatic unlock — perfect for predictable deadlines.</p>
           </article>
+          </div>
+          <div class="carousel__dots" aria-hidden="true"></div>
         </div>
       </div>
     </section>
